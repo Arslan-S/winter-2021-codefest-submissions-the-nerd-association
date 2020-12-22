@@ -1,8 +1,13 @@
 # Hunter Codefest 2020-2021
 
 # Team Info
-### Team name: 
+### Team name: The Nerd Association
 ### Team members (format: GitHub username, last name, first name):
+- Arslan-S || Sajid, Arslan
+-
+-
+-
+-
 
 ### Group info (check all that apply - add an X in the [ ])
 - [ ] We are a Daedalus Google Mentorship group
