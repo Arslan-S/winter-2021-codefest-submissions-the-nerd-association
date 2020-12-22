@@ -4,7 +4,7 @@
 ### Team name: The Nerd Association
 ### Team members (format: GitHub username, last name, first name):
 - Arslan-S || Sajid, Arslan
--
+- jamyooes || Yoo, James
 -
 -
 -
