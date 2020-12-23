@@ -7,9 +7,9 @@
 - jamyooes || Yoo, James
 - ARGunawan || Gunawan, Alfonso
 - csangcap || Sangcap, Caitlin-Dawn
--
+- ifteASC4 || Ahmed, Ifte
 
-### Group info (check all that apply - add an X in the [ ])
+# Group info (check all that apply - add an X in the [ ])
 - [ ] We are a Daedalus Google Mentorship group
 - [X] We are a beginner group (only completed CSCI 12700)
 
