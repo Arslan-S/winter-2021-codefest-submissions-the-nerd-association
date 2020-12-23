@@ -6,7 +6,7 @@
 - Arslan-S || Sajid, Arslan
 - jamyooes || Yoo, James
 - ARGunawan || Gunawan, Alfonso
--
+- csangcap || Sangcap, Caitlin-Dawn
 -
 
 ### Group info (check all that apply - add an X in the [ ])
