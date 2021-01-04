@@ -1,8 +1,47 @@
-body{
+/* body{
     background-color: purple;
+  }
+*/
+  .background-box{
+    background-color: plum;
+    background-image: url(http://www.hunter.cuny.edu/admissions/repository/images/classic-hunter-nyc-cabs.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 180px;
+    margin: -8px;
+    padding: 20px;
+  }
+  .purple-box{
+    background-color: purple;
+    padding: 10px;
+    margin: -8px;
+  }
+  .purple-box-login{
+    background-color: purple;
+    height: 435px;
+    padding: 10px;
+    margin: -8px;
+  }
+  .black-box{
+    background-color: black;
+    width: 80px;
+    padding: 15px;
+  }
+  .gray-box{
+    background-color: gray;
+    width: 300px;
+    padding: 25px;
+  }
+  .thin-black-border{
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
   }
   .white-text{
     color: white;
+  }
+  .black-text{
+    color: black;
   }
   .center-text{
     text-align: center;
@@ -13,9 +52,23 @@ body{
   .link-size{
     font-size: 21px;
   }
-  .center {
+  .center-image {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 60%;
+  }
+  .center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+  }
+  #nav-bar{
+    margin: -10px;;
+  }
+  #comment-box{
+    height: 100px;
+    width: 800px;
+    font-size: 16px;
   }
