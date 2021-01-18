@@ -3,8 +3,9 @@
   }
 */
   .background-box{
-    background-color: plum;
+    background-color: rgba(0, 0, 0, 0.15);
     background-image: url(hunter.jpg);
+    background-blend-mode: multiply;
     background-repeat: no-repeat;
     background-size: cover;
     height: 180px;
@@ -38,7 +39,7 @@
     border-width: 3px;
   }
   .white-text{
-    color: white;
+    color: rgb(255, 255, 255);
   }
   .black-text{
     color: black;
