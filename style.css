@@ -2,6 +2,9 @@
     background-color: purple;
   }
 */
+  body, html{
+    height: 100%;
+  }
   .background-box{
     background-color: rgba(0, 0, 0, 0.15);
     background-image: url(hunter.jpg);
@@ -12,14 +15,23 @@
     margin: -8px;
     padding: 20px;
   }
+  .purple-box-stats{
+    height: 100%;
+    background-color: purple;
+    border-top: 2px solid white;
+    padding: 10px;
+    margin: -8px;
+  }
   .purple-box{
     background-color: purple;
+    border-top: 2px solid white;
     padding: 10px;
     margin: -8px;
   }
   .purple-box-login{
     background-color: purple;
-    height: 435px;
+    border-top: 2px solid white;
+    height: 423px;
     padding: 10px;
     margin: -8px;
   }
