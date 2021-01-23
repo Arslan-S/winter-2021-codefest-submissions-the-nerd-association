@@ -16,19 +16,28 @@
         </div>
     </div>
       
-    <div class="purple-box-stats">
+    <div class="purple-box">
       <h2 class="white-text center-text">Review Statistics</h2><hr>
       <p class="white-text center-text">The statistical data below comprises all available student evaluations from the past five years to the current year. To view these student evaluations, 
       the viewer would have to verify that they are Hunter College students and will be sent a code to check for authentication. While these are official documents obtained from Hunter, the 
       data displayed here may not be reflected accurately based on the number of responses given in comparison to the actual class size.</p><hr><br>
 
+      <div class="dropdown">
+        <button class="dropbtn">Choose a Professor</button>
+        <div class="dropdown-content">
+          <a href="https://codefest.huntercs.org/winter-2021-codefest-submissions-the-nerd-association/shostak" target="_self">Shostak</a>
+        </div>
+      </div>
+
       <h2 class="white-text center-text">SHOSTAK</h2>
 
       <script>
         //python -m http.server 8000
-        
-        lineGraph();
-        async function getData(){
+    
+        drawlineGraph();
+        drawWebData7();
+        drawWebData3();
+        async function getLineData(){
             const xVals = [];
             const yVals = [];
             const response = await fetch("professor.json");
@@ -42,19 +51,20 @@
                 //console.log(courses);
                 let semesterMean = 0;
                 for(let course=0; course< courses.length;course++){
-                    //average per one class in a semester
-                    semesterMean = semesterMean + courses[course].averageScale7[8]; 
+                    //average per one class in a semester'
+                    semesterMean+= courses[course].averageScale7[8]; 
                 }
                 //average divided my total classes 
-                yVals.push(semesterMean/(courses.length)); 
+                let result = semesterMean/(courses.length);
+                yVals.push(result.toFixed(2)); 
                 semesterMean = 0; //reset
             }
     
             return {xVals, yVals};
         }
     
-        async function lineGraph(){
-            const mydata = await getData();
+        async function drawlineGraph(){
+            const mydata = await getLineData();
             const ctx = document.getElementById('myChart').getContext('2d');
             const chart = new Chart(ctx, {
                 // The type of chart we want to create
@@ -65,25 +75,154 @@
                     labels: mydata.xVals,
                     datasets: [{
                         label: 'Average Overall Evalutaion',
-                        backgroundColor: 'rgb(0,0,0)',
-                        borderColor: 'rgb(0,0,0)',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
                         fill: false,
                         data: mydata.yVals
                     }]
                 },
     
                 // Configuration options go here
-                options: {}
+                options:{
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Semester"
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Score out of 7"
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMax: 7
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: "SHOSTACKS RATINGS"
+                    }
+                }
             });
         }
-      </script>
+        
+        async function getWebData(){
+            const webResults7 = [];
+            const webResults3 = [];
+            const response = await fetch("professor.json");
+            const data = await response.json(); //everything
+            //console.log(data);
+            const semesters = data.semesters; //just the semesters
+            //console.log(semesters);
+            let totalAverages7 = [0,0,0,0,0,0,0,0];
+            let totalAverages3 = [0,0,0,0,0];
+            let totalClasses = 0;
+            for (let term = 0; term < semesters.length; term++) {
+                let courses = semesters[term].classes;//classes per semester
+                totalClasses+= courses.length;
+                for(let course=0; course< courses.length;course++){
+                    //average per one class in a semester
+                    for (let category = 0; category < courses[course].averageScale7.length-1; category++) {
+                        totalAverages7[category]+= courses[course].averageScale7[category];
+                    }
+                    for (let category = 0; category < courses[course].averageScale3.length; category++) {
+                        totalAverages3[category]+= courses[course].averageScale3[category];
+                    }
+                }
+            }
+            for(let i=0;i<totalAverages7.length;i++){
+                webResults7.push((totalAverages7[i]/totalClasses).toFixed(2));
+            }
+            for(let i=0;i<totalAverages3.length;i++){
+                webResults3.push((totalAverages3[i]/totalClasses).toFixed(2));
+            }
+            return {webResults3, webResults7};
+        }
+    
+        async function drawWebData7(){
+            const mydata = await getWebData();
+            let ctx = document.getElementById('myWeb7').getContext('2d');
+            let myRadarChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Clearly Defined Objectives', 'Respectfulness', 'Organization', 'Good Examples','Interprets Abstract Ideas','Communicates Knowlegede Efficently','Challenges Me Intellectually','Increased Interest in Subject'],
+                    datasets: [{
+                        label: "Teaching Style",
+                        data: mydata.webResults7,
+                        backgroundColor: 'rgba(255, 99, 132, 0.4)',
+                        borderColor: 'rgb(255, 99, 132)'
+                    }]
+                },
+                options: {
+                    scale: {
+                        angleLines: {
+                            display: false
+                        },
+                        ticks: {
+                            suggestedMin: 4,
+                            suggestedMax: 7
+                        }
+                    }
+                }
+            });
+        }
+      
+        async function drawWebData3(){
+            const mydata = await getWebData();
+            let ctx = document.getElementById('myWeb3').getContext('2d');
+            let myRadarChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Provided Individual Attention', 'Encouraged Student Participation', 'Constructive Feedback', 'Helpfulness to Questions','Supplemental Materials Helpfulness'],
+                    datasets: [{
+                        label: "Supplemental Aid",
+                        data: mydata.webResults3,
+                        backgroundColor: 'rgba(255, 99, 132, 0.4)',
+                        borderColor: 'rgb(255, 99, 132)'
+                    }]
+                },
+                options: {
+                    scale: {
+                        angleLines: {
+                            display: false
+                        },
+                        ticks: {
+                            suggestedMin: 1.5,
+                            suggestedMax: 3
+                        }
+                    }
+                }
+            });
+        }
+        </script>
 
       <div class="chart-box center-image">
         <canvas id="myChart"></canvas>
         <span class="white-text">*Scores out of 7</span>
+<<<<<<< HEAD
+=======
+      </div>
+      <br><hr><br>
+
+      <div class="chart-box center-image">
+        <canvas id="myWeb7" width="517" height="258" class="double-chart-box"></canvas>
+        <span class="white-text">*Scores out of 7</span>
+      </div>
+      <br><hr><br>
+
+      <div class="chart-box center-image">
+        <canvas id="myWeb3" width="517" height="258" class="double-chart-box"></canvas>
+        <span class="white-text">*Scores out of 3</span>
+>>>>>>> 0131665 (More graphs)
       </div>
 
-      <br><a href="https://codefest.huntercs.org/winter-2021-codefest-submissions-the-nerd-association/stats" target="_self" class="white-text">BACK</a>
+      <br><br><a href="https://codefest.huntercs.org/winter-2021-codefest-submissions-the-nerd-association/stats" target="_self" class="white-text">BACK</a>
     </div>
   </body>
 </html>

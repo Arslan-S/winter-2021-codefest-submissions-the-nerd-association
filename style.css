@@ -82,6 +82,12 @@
     height: 50vh;
     width: 100vh;
   }
+  .double-chart-box{
+    background-color: white;
+    display: block; 
+    width: 517px; 
+    height: 258px;
+  }
   #nav-bar{
     margin: -10px;;
   }
